@@ -2,6 +2,7 @@
 Docker enviroment to use sale-system repository.
 
 ## How to use
+! Make sure your port 80 is free to use
 
 - Clone this repository
 ```
