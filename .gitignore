@@ -1,0 +1,5 @@
+# Hide app files
+app/
+
+# Hide mysql data
+mysql/data/
