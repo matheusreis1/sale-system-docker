@@ -1,0 +1,40 @@
+version: '3.5'
+
+services: 
+    mysql:
+        image: mysql:5.7.20
+        container_name: sale_system_mysql
+        volumes:
+            - "./mysql/data:/var/lib/mysql"
+            - "./mysql/initial_data:/docker-entrypoint-initdb.d"
+        ports:
+            - "3300:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=as123FAhyas3
+    nginx:
+        image: nginx:1.15
+        container_name: sale_system_nginx
+        volumes:
+            - "./app:/var/www/html"
+            - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+        ports:
+            - "80:80"
+        depends_on:
+            - mysql
+    php:
+        build:
+            context: ./php
+        container_name: sale_system_php
+        volumes:
+            - "./app:/var/www/html"
+        ports:
+            - "9000:9000"
+        depends_on:
+            - mysql
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_PASS=as123FAhyas3
+    
+networks: 
+    default:
+        name: sale-system
